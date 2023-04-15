@@ -18,11 +18,15 @@ export async function requestOpenai(req: NextRequest) {
   console.log("[Proxy] ", openaiPath);
   console.log("[Base Url]", baseUrl);
 
+  let customHeaders = {
+    "Content-Type": "application/json",
+    Authorization: "",
+  };
+  if (apiKey !== undefined && apiKey !== "" && apiKey !== null) {
+    customHeaders.Authorization = `Bearer ${apiKey}`;
+  }
   return fetch(`${baseUrl}/${openaiPath}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: customHeaders,
     method: req.method,
     body: req.body,
   });

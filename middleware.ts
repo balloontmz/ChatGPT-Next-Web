@@ -30,26 +30,27 @@ export function middleware(req: NextRequest) {
     );
   }
 
+  //2023年4月16日 tmz 没有token也能执行
   // inject api key
-  if (!token) {
-    const apiKey = serverConfig.apiKey;
-    if (apiKey) {
-      console.log("[Auth] set system token");
-      req.headers.set("token", apiKey);
-    } else {
-      return NextResponse.json(
-        {
-          error: true,
-          msg: "Empty Api Key",
-        },
-        {
-          status: 401,
-        },
-      );
-    }
-  } else {
-    console.log("[Auth] set user token");
-  }
+  // if (!token) {
+  //   const apiKey = serverConfig.apiKey;
+  //   if (apiKey) {
+  //     console.log("[Auth] set system token");
+  //     req.headers.set("token", apiKey);
+  //   } else {
+  //     return NextResponse.json(
+  //       {
+  //         error: true,
+  //         msg: "Empty Api Key",
+  //       },
+  //       {
+  //         status: 401,
+  //       },
+  //     );
+  //   }
+  // } else {
+  //   console.log("[Auth] set user token");
+  // }
 
   return NextResponse.next({
     request: {
